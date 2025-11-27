@@ -9,8 +9,8 @@ def main():
         if opcion == 1:
             # --- SUBMENÚ LIBROS ---
             opcionLibro = 0
-            while opcionLibro != 4:
-                print("\n1. Agregar Libro\n2. Eliminar Libro\n3. Modificar Libro\n4. Atrás")
+            while opcionLibro != 5:
+                print("\n1. Agregar Libro\n2. Eliminar Libro\n3. Modificar Libro\n4. Monstrar todos los libros\n5. Atrás")
                 opcionLibro = int(input("Escoge la opción que quieras realizar: "))
 
                 if opcionLibro == 1:
@@ -20,6 +20,8 @@ def main():
                 elif opcionLibro == 3:
                     modificarLibro()
                 elif opcionLibro == 4:
+                    mostrarLibros()
+                elif opcionLibro == 5:
                     print("Volviendo al menú principal...\n")
                 else:
                     print("Opción no válida")
