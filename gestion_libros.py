@@ -14,30 +14,51 @@ if not os.path.exists(ruta):
 else:
     print("El archivo ya existe. No se hizo nada.")
 
-# Función para obtener el siguiente ID
+
 def obtener_siguiente_id():
     if not os.path.exists(ruta) or os.path.getsize(ruta) == 0:
         return 1
     with open(ruta, "r", encoding="utf-8") as file:
         dataleer = list(csv.reader(file, delimiter=";"))
         ultimo_id = 0
-        for fila in dataleer[1:]:  # saltamos encabezado
+        for fila in dataleer[1:]:  
             if fila:
                 ultimo_id = int(fila[0])
         return ultimo_id + 1
 
-# Función para agregar libro
+
 def agregarLibro():
+    
     titulo = input("Introduzca el titulo: ")
     autor = input("Introduzca el autor: ")
-    anyo = int(input("Introduzca el año: "))
-    n_paginas = int(input("Introduzca el numero de paginas: "))
+
+    
+    while True:
+        anyo = input("Introduzca el año (4 dígitos): ")
+        if anyo.isdigit() and len(anyo) == 4:
+            anyo = int(anyo)
+            break
+        else:
+            print("El año debe ser un número de 4 dígitos.")
+
+
+    while True:
+        n_paginas = input("Introduzca el número de páginas (20 - 1000): ")
+        if n_paginas.isdigit():
+            n_paginas = int(n_paginas)
+            if 20 <= n_paginas <= 1000:
+                break
+            else:
+                print("El número de páginas debe estar entre 20 y 1000.")
+        else:
+            print("Debe introducir un número válido.")
+
     genero = input("Introduzca el genero: ")
     editorial = input("Introduzca la editorial: ")
 
     id_libro = obtener_siguiente_id()
     libroNuevo = Libro(titulo, autor, anyo, n_paginas, genero, editorial)
-    libroNuevo.id = id_libro  # asignamos ID correcto
+    libroNuevo.id = id_libro
 
     with open(ruta, "a", encoding="utf-8", newline="") as file:
         data = csv.writer(file, delimiter=";")
@@ -52,8 +73,8 @@ def agregarLibro():
             libroNuevo.estado,
             libroNuevo.disponible
         ])
-    print(f"Libro '{libroNuevo.titulo}' agregado correctamente.")
 
+    print(f"Libro '{libroNuevo.titulo}' agregado correctamente.")
 
 def eliminarLibro():
     titulo = input("Introduce el título del libro que quieras eliminar: ")
