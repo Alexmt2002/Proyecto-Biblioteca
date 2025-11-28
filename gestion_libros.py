@@ -15,7 +15,7 @@ else:
     print("El archivo ya existe. No se hizo nada.")
 
 
-def obtener_siguiente_id():
+def obtenerSiguienteId():
     if not os.path.exists(ruta) or os.path.getsize(ruta) == 0:
         return 1
     with open(ruta, "r", encoding="utf-8") as file:
@@ -56,23 +56,14 @@ def agregarLibro():
     genero = input("Introduzca el genero: ")
     editorial = input("Introduzca la editorial: ")
 
-    id_libro = obtener_siguiente_id()
+    id_libro = obtenerSiguienteId()
     libroNuevo = Libro(titulo, autor, anyo, n_paginas, genero, editorial)
     libroNuevo.id = id_libro
 
     with open(ruta, "a", encoding="utf-8", newline="") as file:
         data = csv.writer(file, delimiter=";")
-        data.writerow([
-            libroNuevo.id,
-            libroNuevo.titulo,
-            libroNuevo.autor,
-            libroNuevo.anyo,
-            libroNuevo.n_pags,
-            libroNuevo.genero,
-            libroNuevo.editorial,
-            libroNuevo.estado,
-            libroNuevo.disponible
-        ])
+        data.writerow([libroNuevo.id, libroNuevo.titulo, libroNuevo.autor, libroNuevo.anyo,   libroNuevo.n_pags,  libroNuevo.genero,
+                       libroNuevo.editorial, libroNuevo.estado, libroNuevo.disponible ])
 
     print(f"Libro '{libroNuevo.titulo}' agregado correctamente.")
 

@@ -56,11 +56,10 @@ class Libro:
 
 class Usuario:
     
-    ID_usuario = 0 
+   
     
     def __init__(self, nombre, apellidos, dni, correo_e, tlfno, direccion, edad):
-        Usuario.ID_usuario += 1          
-        self.id_usuario = Usuario.ID_usuario
+        self.id_usuario = id
         self.nombre = nombre
         self.apellidos = apellidos
         self.dni = dni
