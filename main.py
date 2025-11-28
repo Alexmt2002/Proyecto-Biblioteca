@@ -1,4 +1,5 @@
 from gestion_libros import *
+from gestion_usuarios import *
  
 def main():
     
@@ -26,8 +27,25 @@ def main():
                 else:
                     print("Opción no válida")
 
-        # Aquí podrás seguir con los demás menús:
-        # elif opcion == 2: ...
+       
+        elif opcion == 2:
+            opcionUsuario = 0
+            while opcionUsuario != 5:
+                print("\n1. Agregar Usuario\n2. Eliminar Usuario\n3. Modificar Usuario\n4. Monstrar todos los Usuario\n5. Atrás")
+                opcionUsuario = int(input("Escoge la opción que quieras realizar: "))
+
+                if opcionUsuario == 1:
+                    altaUsuario()
+                elif opcionUsuario == 2:
+                    bajaUsuario()
+                elif opcionUsuario == 3:
+                    modificarUsuario()
+                elif opcionUsuario == 4:
+                    modificarUsuario()
+                elif opcionUsuario == 5:
+                    print("Volviendo al menú principal...\n")
+                else:
+                    print("Opción no válida")
 
         print("1. Gestión Libros\n2. Gestión usuarios\n3. Registrar préstamo\n4. Registrar devolución\n5. Listados de préstamos\n6. Salir")
         opcion = int(input("Escoge la opción que quieras realizar: "))

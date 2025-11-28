@@ -102,17 +102,8 @@ def modificarLibro():
             nuevo_genero = input(f"Género [{fila[5]}]: ") or fila[5]
             nuevo_editorial = input(f"Editorial [{fila[6]}]: ") or fila[6]
             
-            data[i] = [
-                fila[0], 
-                nuevo_titulo,
-                nuevo_autor,
-                int(nuevo_anyo),
-                int(nuevo_n_paginas),
-                nuevo_genero,
-                nuevo_editorial,
-                fila[7],  
-                fila[8]   
-            ]
+            data[i] = [fila[0], nuevo_titulo,nuevo_autor,int(nuevo_anyo), int(nuevo_n_paginas), nuevo_genero,
+                nuevo_editorial, fila[7],  fila[8] ]
             break
 
     if not encontrado:
