@@ -26,6 +26,15 @@ def obtenerSiguienteIdUsuario():
                 ultimo_id = int(fila[0])
         return ultimo_id + 1
 
+def dniExiste(dni):
+    if not os.path.exists(ruta):
+        return False
+    with open(ruta, "r", encoding="utf-8") as file:
+        data = list(csv.reader(file, delimiter=";"))
+        for fila in data[1:]:
+            if len(fila) > 3 and fila[3].upper() == dni.upper():
+                return True
+    return False
 
 def altaUsuario():
     print("Creación de usuario")
@@ -46,12 +55,18 @@ def altaUsuario():
 
    
     while True:
-        dni = input("Introduce el DNI").upper()
-        if re.fullmatch(r"\d{7}[A-Za-z]", dni):
-            break
-        print("El DNI debe contener 7 números seguidos de 1 letra (ej: 1234567A).")
+        dni = input("Introduce el DNI: ").upper()
 
-    
+        if not re.fullmatch(r"\d{7}[A-Za-z]", dni):
+            print("El DNI debe contener 7 números y 1 letra (ej: 1234567A).")
+            continue
+
+        if dniExiste(dni):
+            print("ERROR: Ya existe un usuario con ese DNI. Introduce otro.")
+            continue
+
+        break
+
     while True:
         correo = input("Introduce el correo: ")
         if re.fullmatch(r"[\w\.-]+@gmail\.com", correo):
@@ -131,7 +146,23 @@ def modificarUsuario():
 
             nuevo_nombre = input(f"Nombre [{fila[1]}]: ") or fila[1]
             nuevo_apellidos = input(f"Apellidos [{fila[2]}]: ") or fila[2]
-            nuevo_dni = input(f"DNI [{fila[3]}]: ") or fila[3]
+            while True:
+                nuevo_dni = input(f"DNI [{fila[3]}]: ").upper()
+
+                if nuevo_dni == "":
+                    nuevo_dni = fila[3]  # deja el mismo
+                    break
+
+                if not re.fullmatch(r"\d{7}[A-Za-z]", nuevo_dni):
+                    print("El DNI debe tener 7 números y 1 letra.")
+                    continue
+
+                # verificar duplicado salvo que sea el mismo DNI del usuario
+                if nuevo_dni != fila[3] and dniExiste(nuevo_dni):
+                    print("Ya existe otro usuario con ese DNI. Introduce uno diferente.")
+                    continue
+
+                break
             nuevo_correo = input(f"Correo [{fila[4]}]: ") or fila[4]
             nuevo_tlfno = input(f"Teléfono [{fila[5]}]: ") or fila[5]
             nueva_direccion = input(f"Dirección [{fila[6]}]: ") or fila[6]
